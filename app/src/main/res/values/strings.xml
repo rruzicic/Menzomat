@@ -3,4 +3,8 @@
     <string name="dorucak">Doručak</string>
     <string name="rucak">Ručak</string>
     <string name="vecera">Večera</string>
+    <string name="settings">Settings</string>
+    <string name="permission_denied_explanation">
+        You need to grant location permission in order for app to work.
+    </string>
 </resources>

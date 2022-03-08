@@ -5,6 +5,12 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.5.30' apply false
 }
 
+dependencies {
+    // commented for now
+    //implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    //implementation 'com.google.android.gms:play-services-location:18.0.0'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
