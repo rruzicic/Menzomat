@@ -29,34 +29,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         // retrieve data upon reopening the app
-        val cntDorucak = findViewById<EditText>(R.id.cntDorucak)
-        val cntRucak = findViewById<EditText>(R.id.cntRucak)
-        val cntVecera = findViewById<EditText>(R.id.cntVecera)
+        val cntDorucak = findViewById<EditText>(R.id.cntBreakfast)
+        val cntRucak = findViewById<EditText>(R.id.cntLunch)
+        val cntVecera = findViewById<EditText>(R.id.cntDinner)
 
         val pref = getPreferences(Context.MODE_PRIVATE)
 
-        val dorucak_cnt = pref.getInt("dorucak_cnt", 0)
-        val rucak_cnt = pref.getInt("rucak_cnt", 0)
-        val vecera_cnt = pref.getInt("vecera_cnt", 0)
+        val breakfastNum = pref.getInt("dorucak_cnt", 0)
+        val lunchNum = pref.getInt("rucak_cnt", 0)
+        val dinnerNum = pref.getInt("vecera_cnt", 0)
 
-        cntDorucak.setText(dorucak_cnt.toString())
-        cntRucak.setText(rucak_cnt.toString())
-        cntVecera.setText(vecera_cnt.toString())
+        cntDorucak.setText(breakfastNum.toString())
+        cntRucak.setText(lunchNum.toString())
+        cntVecera.setText(dinnerNum.toString())
     }
     override fun onPause() {
         super.onPause()
 
         // save the data for being used the next time
-        val cntDorucak = findViewById<EditText>(R.id.cntDorucak)
-        val cntRucak = findViewById<EditText>(R.id.cntRucak)
-        val cntVecera = findViewById<EditText>(R.id.cntVecera)
+        val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
+        val cntLunch = findViewById<EditText>(R.id.cntLunch)
+        val cntDinner = findViewById<EditText>(R.id.cntDinner)
 
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
 
-        editor.putInt("dorucak_cnt", cntDorucak.getText().toString().toInt())
-        editor.putInt("rucak_cnt", cntRucak.getText().toString().toInt())
-        editor.putInt("vecera_cnt", cntVecera.getText().toString().toInt())
+        editor.putInt("dorucak_cnt", cntBreakfast.getText().toString().toInt())
+        editor.putInt("rucak_cnt", cntLunch.getText().toString().toInt())
+        editor.putInt("vecera_cnt", cntDinner.getText().toString().toInt())
 
         editor.commit()
     }

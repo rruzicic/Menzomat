@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/cntRucak"
+        android:id="@+id/cntLunch"
         android:layout_width="60dp"
         android:layout_height="63dp"
         android:layout_marginTop="24dp"
@@ -20,10 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rucak" />
+        app:layout_constraintTop_toBottomOf="@+id/lblLunch" />
 
     <EditText
-        android:id="@+id/cntVecera"
+        android:id="@+id/cntDinner"
         android:layout_width="60dp"
         android:layout_height="63dp"
         android:layout_marginStart="48dp"
@@ -33,26 +33,26 @@
         android:text="0"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toEndOf="@+id/cntRucak"
-        app:layout_constraintTop_toBottomOf="@+id/vecera" />
+        app:layout_constraintStart_toEndOf="@+id/cntLunch"
+        app:layout_constraintTop_toBottomOf="@+id/lblDinner" />
 
     <TextView
-        android:id="@+id/dorucak"
+        android:id="@+id/lblBreakfast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="208dp"
         android:layout_marginEnd="52dp"
-        android:text="@string/dorucak"
+        android:text="@string/breakfast_lbl"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/rucak"
+        app:layout_constraintEnd_toStartOf="@+id/lblLunch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/rucak"
+        android:id="@+id/lblLunch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="208dp"
-        android:text="@string/rucak"
+        android:text="@string/lunch_lbl"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -60,18 +60,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/vecera"
+        android:id="@+id/lblDinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="208dp"
-        android:text="@string/vecera"
+        android:text="@string/dinner_lbl"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/rucak"
+        app:layout_constraintStart_toEndOf="@+id/lblLunch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/cntDorucak"
+        android:id="@+id/cntBreakfast"
         android:layout_width="60dp"
         android:layout_height="63dp"
         android:layout_marginTop="24dp"
@@ -81,6 +81,6 @@
         android:text="0"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toStartOf="@+id/cntRucak"
-        app:layout_constraintTop_toBottomOf="@+id/dorucak" />
+        app:layout_constraintEnd_toStartOf="@+id/cntLunch"
+        app:layout_constraintTop_toBottomOf="@+id/lblBreakfast" />
 </androidx.constraintlayout.widget.ConstraintLayout>
