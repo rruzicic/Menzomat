@@ -2,7 +2,6 @@ package com.example.menzomat
 
 import android.Manifest
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -39,19 +38,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         // retrieve data upon reopening the app
-        val cntDorucak = findViewById<EditText>(R.id.cntBreakfast)
-        val cntRucak = findViewById<EditText>(R.id.cntLunch)
-        val cntVecera = findViewById<EditText>(R.id.cntDinner)
+        val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
+        val cntLunch = findViewById<EditText>(R.id.cntLunch)
+        val cntDinner = findViewById<EditText>(R.id.cntDinner)
 
         val pref = getPreferences(Context.MODE_PRIVATE)
 
-        val breakfastNum = pref.getInt("dorucak_cnt", 0)
-        val lunchNum = pref.getInt("rucak_cnt", 0)
-        val dinnerNum = pref.getInt("vecera_cnt", 0)
+        val breakfastNum = pref.getInt("breakfast_cnt", 0)
+        val lunchNum = pref.getInt("lunch_cnt", 0)
+        val dinnerNum = pref.getInt("dinner_cnt", 0)
 
-        cntDorucak.setText(breakfastNum.toString())
-        cntRucak.setText(lunchNum.toString())
-        cntVecera.setText(dinnerNum.toString())
+        cntBreakfast.setText(breakfastNum.toString())
+        cntLunch.setText(lunchNum.toString())
+        cntDinner.setText(dinnerNum.toString())
 
         //val locations = arrayOf(Location("tgh", 58.798233, 11.123959))
         // MENZA: 45.24609692364816, 19.848956664010046
@@ -115,11 +114,11 @@ class MainActivity : AppCompatActivity() {
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
 
-        editor.putInt("dorucak_cnt", cntBreakfast.getText().toString().toInt())
-        editor.putInt("rucak_cnt", cntLunch.getText().toString().toInt())
-        editor.putInt("vecera_cnt", cntDinner.getText().toString().toInt())
+        editor.putInt("breakfast_cnt", cntBreakfast.getText().toString().toInt())
+        editor.putInt("lunch_cnt", cntLunch.getText().toString().toInt())
+        editor.putInt("dinner_cnt", cntDinner.getText().toString().toInt())
 
-        editor.commit()
+        editor.apply()
     }
 
 
@@ -146,6 +145,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    
 }
