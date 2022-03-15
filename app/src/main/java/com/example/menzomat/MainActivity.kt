@@ -5,28 +5,42 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 const val TAG = "MenzomatFence"
+lateinit var cntBreakfast: TextView
+lateinit var cntLunch: TextView
+lateinit var cntDinner: TextView
 
 // class is not abstract because the app was throwing Instantiation Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var geofencingClient: GeofencingClient
+
     private val geofenceList = mutableListOf<Geofence>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
+        cntLunch = findViewById<EditText>(R.id.cntLunch)
+        cntDinner = findViewById<EditText>(R.id.cntDinner)
         // requesting permissions
         if(ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION)){
@@ -38,9 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // retrieve data upon reopening the app
-        val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
-        val cntLunch = findViewById<EditText>(R.id.cntLunch)
-        val cntDinner = findViewById<EditText>(R.id.cntDinner)
+
 
         val pref = getPreferences(Context.MODE_PRIVATE)
 
@@ -52,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         cntLunch.setText(lunchNum.toString())
         cntDinner.setText(dinnerNum.toString())
 
-        //val locations = arrayOf(Location("tgh", 58.798233, 11.123959))
         // MENZA: 45.24609692364816, 19.848956664010046
         // TOCIONICA: 45.2425682891253, 19.84705162541752
         geofencingClient = LocationServices.getGeofencingClient(this)
@@ -63,15 +74,14 @@ class MainActivity : AppCompatActivity() {
             .setRequestId("MenzaFence")
 
             // Set the circular region of this geofence.
-            .setCircularRegion(45.24609692364816, 19.848956664010046, 150f)
+            .setCircularRegion(45.24609692364816, 19.848956664010046, 500f)
 
             // Set the expiration duration of the geofence. This geofence gets automatically removed after this period of time.
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
+            // Set the transition types of interest. Alerts are only generated for these transition. We track entry and exit transitions in this sample.
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT or Geofence.GEOFENCE_TRANSITION_DWELL)
 
-            // Set the transition types of interest. Alerts are only generated for these
-            // transition. We track entry and exit transitions in this sample.
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
-
+            .setLoiteringDelay(30000)
             // Create the geofence.
             .build())
 
@@ -91,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getGeofencingRequest(): GeofencingRequest {
         return GeofencingRequest.Builder().apply {
-            setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)  // changed from INITIAL_TRIGGER_ENTER
+            setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER or GeofencingRequest.INITIAL_TRIGGER_DWELL)
             addGeofences(geofenceList)
         }.build()
     }
@@ -107,9 +117,9 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
 
         // save the data for being used the next time
-        val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
+        /*val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
         val cntLunch = findViewById<EditText>(R.id.cntLunch)
-        val cntDinner = findViewById<EditText>(R.id.cntDinner)
+        val cntDinner = findViewById<EditText>(R.id.cntDinner)*/
 
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
@@ -120,7 +130,6 @@ class MainActivity : AppCompatActivity() {
 
         editor.apply()
     }
-
 
     // requesting permissions
     override fun onRequestPermissionsResult(
@@ -145,4 +154,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }
