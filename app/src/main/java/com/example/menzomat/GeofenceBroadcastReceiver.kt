@@ -1,8 +1,10 @@
 package com.example.menzomat
 
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
@@ -26,6 +28,22 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
         // Get the transition type.
         val geofenceTransition = geofencingEvent.geofenceTransition
 
+        // setting up the notification
+        val intent = Intent(context, LauncherActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableVibration(true)
+            notificationManager.createNotificationChannel(notificationChannel)
+            if (context != null) {
+                builder = Notification.Builder(context, channelId)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_launcher_foreground))
+                    .setContentIntent(pendingIntent)
+            }
+        }
+
+
         // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
 
@@ -46,16 +64,34 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
                 var breakfastNum = cntBreakfast.text.toString().toInt()
                 breakfastNum--
                 cntBreakfast.setText(breakfastNum.toString())
+
+                builder
+                    .setContentTitle("Doručak")
+                    .setContentText("Upravo Vam je skinut jedan doručak, da li želite da opozovete promenu?")
+
+                notificationManager.notify(12345, builder.build())
             }
             if((hrs >= 11 && hrs <= 16) || (hrs == 10 && mins >= 15) || (hrs == 16 && mins <= 15)) {
                 var lunchNum = cntLunch.text.toString().toInt()
                 lunchNum--
                 cntLunch.setText(lunchNum.toString())
+
+                builder
+                    .setContentTitle("Ručak")
+                    .setContentText("Upravo Vam je skinut jedan ručak, da li želite da opozovete promenu?")
+
+                notificationManager.notify(12345, builder.build())
             }
             if((hrs >= 17 && hrs <= 20) || (hrs == 17 && mins <= 15)) {
                 var dinnerNum = cntDinner.text.toString().toInt()
                 dinnerNum--
                 cntDinner.setText(dinnerNum.toString())
+
+                builder
+                    .setContentTitle("Večera")
+                    .setContentText("Upravo Vam je skinuta jedna večera, da li želite da opozovete promenu?")
+
+                notificationManager.notify(12345, builder.build())
             }
 
         } else if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {

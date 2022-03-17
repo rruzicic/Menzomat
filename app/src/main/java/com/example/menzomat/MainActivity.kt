@@ -1,10 +1,12 @@
 package com.example.menzomat
 
 import android.Manifest
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 
@@ -22,11 +25,16 @@ lateinit var cntBreakfast: TextView
 lateinit var cntLunch: TextView
 lateinit var cntDinner: TextView
 
+lateinit var notificationChannel: NotificationChannel
+lateinit var notificationManager: NotificationManager
+lateinit var builder: Notification.Builder
+const val channelId = "12345"
+const val description = "Test Notification"
+
 // class is not abstract because the app was throwing Instantiation Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var geofencingClient: GeofencingClient
-
     private val geofenceList = mutableListOf<Geofence>()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -49,8 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // retrieve data upon reopening the app
-
-
         val pref = getPreferences(Context.MODE_PRIVATE)
 
         val breakfastNum = pref.getInt("breakfast_cnt", 0)
@@ -76,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             // Set the transition types of interest. Alerts are only generated for these transition. We track entry and exit transitions in this sample.
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT or Geofence.GEOFENCE_TRANSITION_DWELL)
 
-            .setLoiteringDelay(30000)
+            .setLoiteringDelay(300000) // 5 minutes
             // Create the geofence.
             .build())
 
