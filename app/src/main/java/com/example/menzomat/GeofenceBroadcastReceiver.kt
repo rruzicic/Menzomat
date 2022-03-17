@@ -1,30 +1,22 @@
 package com.example.menzomat
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofenceStatusCodes
 import com.google.android.gms.location.GeofencingEvent
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context?, intent: Intent) {
-        val toast = Toast.makeText(context, "AAA", Toast.LENGTH_LONG)
-        toast.show()
-
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
@@ -41,12 +33,15 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
             val toast = Toast.makeText(context, "YOU DWELLED!", Toast.LENGTH_LONG)
             toast.show()
 
-            var currentDateTime = LocalDateTime.now()
-            var formatedTime = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
-            val timeList = formatedTime.split(":")
-            var hrs = timeList[0].toInt()
-            var mins = timeList[1].toInt()
+            // getting the time
+            val currentDateTime = LocalDateTime.now()
+            val formattedTime = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+            val timeList = formattedTime.split(":")
+            val hrs = timeList[0].toInt()
+            val mins = timeList[1].toInt()
 
+            // checking the time so that we could determine the meal type
+            // I've extended the actual time window for the meal because the user might stay after the working hours
             if((hrs >= 7 && hrs <= 9) || (hrs == 10 && mins < 15)){
                 var breakfastNum = cntBreakfast.text.toString().toInt()
                 breakfastNum--

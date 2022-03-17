@@ -16,9 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 const val TAG = "MenzomatFence"
 lateinit var cntBreakfast: TextView
@@ -64,8 +61,6 @@ class MainActivity : AppCompatActivity() {
         cntLunch.setText(lunchNum.toString())
         cntDinner.setText(dinnerNum.toString())
 
-        // MENZA: 45.24609692364816, 19.848956664010046
-        // TOCIONICA: 45.2425682891253, 19.84705162541752
         geofencingClient = LocationServices.getGeofencingClient(this)
 
         geofenceList.add(Geofence.Builder()
@@ -74,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             .setRequestId("MenzaFence")
 
             // Set the circular region of this geofence.
-            .setCircularRegion(45.24609692364816, 19.848956664010046, 500f)
+            .setCircularRegion(45.24609692364816, 19.848956664010046, 50f)
 
             // Set the expiration duration of the geofence. This geofence gets automatically removed after this period of time.
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -115,11 +110,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-
-        // save the data for being used the next time
-        /*val cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
-        val cntLunch = findViewById<EditText>(R.id.cntLunch)
-        val cntDinner = findViewById<EditText>(R.id.cntDinner)*/
 
         val pref = getPreferences(Context.MODE_PRIVATE)
         val editor = pref.edit()
