@@ -16,9 +16,14 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class GeofenceBroadcastReceiver: BroadcastReceiver() {
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var notificationManager: NotificationManager
+    lateinit var builder: Notification.Builder
+    val channelId = "12345"
+    val description = "Test Notification"
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onReceive(context: Context?, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent) {
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             val errorMessage = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
@@ -29,6 +34,7 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
         val geofenceTransition = geofencingEvent.geofenceTransition
 
         // setting up the notification
+        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val intent = Intent(context, LauncherActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -60,6 +66,8 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
             // checking the time so that we could determine the meal type
             // I've extended the actual time window for the meal because the user might stay after the working hours
+            // TODO: offer the user to revoke the change in meals
+            // TODO: add exceptions for saturday and sunday
             if((hrs >= 7 && hrs <= 9) || (hrs == 10 && mins < 15)){
                 var breakfastNum = cntBreakfast.text.toString().toInt()
                 breakfastNum--

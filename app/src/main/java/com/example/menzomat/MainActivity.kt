@@ -5,8 +5,6 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +14,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
 
@@ -25,18 +22,13 @@ lateinit var cntBreakfast: TextView
 lateinit var cntLunch: TextView
 lateinit var cntDinner: TextView
 
-lateinit var notificationChannel: NotificationChannel
-lateinit var notificationManager: NotificationManager
-lateinit var builder: Notification.Builder
-const val channelId = "12345"
-const val description = "Test Notification"
 
 // class is not abstract because the app was throwing Instantiation Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var geofencingClient: GeofencingClient
     private val geofenceList = mutableListOf<Geofence>()
-
+    // TODO: add plus 1 and minus 1 button for each meal
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
