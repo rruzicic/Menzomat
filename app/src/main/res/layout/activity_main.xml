@@ -2,16 +2,78 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraintLayoutParent"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnDinnerMinus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="48dp"
+        android:text="-"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/btnLunchMinus"
+        app:layout_constraintTop_toBottomOf="@+id/cntDinner" />
+
+    <Button
+        android:id="@+id/btnDinnerPlus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="48dp"
+        android:text="+"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cntDinner"
+        app:layout_constraintStart_toEndOf="@+id/btnLunchPlus" />
+
+    <Button
+        android:id="@+id/btnLunchMinus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="-"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cntLunch" />
+
+    <Button
+        android:id="@+id/btnLunchPlus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="+"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cntLunch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnBreakfastMinus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="52dp"
+        android:text="-"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/cntLunch"
+        app:layout_constraintTop_toBottomOf="@+id/cntBreakfast" />
 
     <EditText
         android:id="@+id/cntLunch"
         android:layout_width="60dp"
         android:layout_height="63dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:inputType="number"
         android:text="0"
@@ -27,7 +89,7 @@
         android:layout_width="60dp"
         android:layout_height="63dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:inputType="number"
         android:text="0"
@@ -74,7 +136,7 @@
         android:id="@+id/cntBreakfast"
         android:layout_width="60dp"
         android:layout_height="63dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="52dp"
         android:ems="10"
         android:inputType="number"
@@ -83,4 +145,16 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toStartOf="@+id/cntLunch"
         app:layout_constraintTop_toBottomOf="@+id/lblBreakfast" />
+
+    <Button
+        android:id="@+id/btnBreakfastPlus"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="52dp"
+        android:text="+"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cntBreakfast"
+        app:layout_constraintEnd_toStartOf="@+id/cntLunch" />
 </androidx.constraintlayout.widget.ConstraintLayout>

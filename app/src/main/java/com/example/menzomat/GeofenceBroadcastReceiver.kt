@@ -20,7 +20,7 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
     lateinit var builder: Notification.Builder
     val channelId = "12345"
-    val description = "Test Notification"
+    val description = "Menzomat"
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context, intent: Intent) {
@@ -75,7 +75,7 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
                 builder
                     .setContentTitle("Doručak")
-                    .setContentText("Upravo Vam je skinut jedan doručak, da li želite da opozovete promenu?")
+                    .setContentText("Upravo Vam je skinut jedan doručak!")
 
                 notificationManager.notify(12345, builder.build())
             }
@@ -86,7 +86,7 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
                 builder
                     .setContentTitle("Ručak")
-                    .setContentText("Upravo Vam je skinut jedan ručak, da li želite da opozovete promenu?")
+                    .setContentText("Upravo Vam je skinut jedan ručak!")
 
                 notificationManager.notify(12345, builder.build())
             }
@@ -97,7 +97,7 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
                 builder
                     .setContentTitle("Večera")
-                    .setContentText("Upravo Vam je skinuta jedna večera, da li želite da opozovete promenu?")
+                    .setContentText("Upravo Vam je skinuta jedna večera!")
 
                 notificationManager.notify(12345, builder.build())
             }

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 const val TAG = "MenzomatFence"
 lateinit var cntBreakfast: TextView
@@ -35,9 +37,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
+        /*cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
         cntLunch = findViewById<EditText>(R.id.cntLunch)
-        cntDinner = findViewById<EditText>(R.id.cntDinner)
+        cntDinner = findViewById<EditText>(R.id.cntDinner)*/
+
         // requesting permissions
         if(ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION)){
@@ -59,11 +62,45 @@ class MainActivity : AppCompatActivity() {
         cntLunch.setText(lunchNum.toString())
         cntDinner.setText(dinnerNum.toString())
 
+        // plus and minus buttons action listeners
+        btnBreakfastPlus.setOnClickListener{
+            var breakfastNum = cntBreakfast.text.toString().toInt()
+            breakfastNum++
+            cntBreakfast.setText(breakfastNum.toString())
+        }
+        btnBreakfastMinus.setOnClickListener{
+            var breakfastNum = cntBreakfast.text.toString().toInt()
+            breakfastNum--
+            cntBreakfast.setText(breakfastNum.toString())
+        }
+
+        btnLunchPlus.setOnClickListener{
+            var lunchNum = cntLunch.text.toString().toInt()
+            lunchNum++
+            cntLunch.setText(lunchNum.toString())
+        }
+        btnLunchMinus.setOnClickListener{
+            var lunchNum = cntLunch.text.toString().toInt()
+            lunchNum--
+            cntLunch.setText(lunchNum.toString())
+        }
+
+        btnDinnerPlus.setOnClickListener{
+            var dinnerNum = cntDinner.text.toString().toInt()
+            dinnerNum++
+            cntDinner.setText(dinnerNum.toString())
+        }
+        btnDinnerMinus.setOnClickListener{
+            var dinnerNum = cntDinner.text.toString().toInt()
+            dinnerNum--
+            cntDinner.setText(dinnerNum.toString())
+        }
+
+        // add geofence
         geofencingClient = LocationServices.getGeofencingClient(this)
 
         geofenceList.add(Geofence.Builder()
-            // Set the request ID of the geofence. This is a string to identify this
-            // geofence.
+            // Set the request ID of the geofence. This is a string to identify this geofence.
             .setRequestId("MenzaFence")
 
             // Set the circular region of this geofence.
