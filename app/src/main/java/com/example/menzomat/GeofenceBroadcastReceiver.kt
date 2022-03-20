@@ -33,6 +33,8 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
         // Get the transition type.
         val geofenceTransition = geofencingEvent.geofenceTransition
 
+
+
         // setting up the notification
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val intent = Intent(context, LauncherActivity::class.java)
@@ -69,9 +71,9 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
             // TODO: offer the user to revoke the change in meals
             // TODO: add exceptions for saturday and sunday
             if((hrs >= 7 && hrs <= 9) || (hrs == 10 && mins < 15)){
-                var breakfastNum = cntBreakfast.text.toString().toInt()
+                var breakfastNum = cntBreakfastG.text.toString().toInt()
                 breakfastNum--
-                cntBreakfast.setText(breakfastNum.toString())
+                cntBreakfastG.setText(breakfastNum.toString())
 
                 builder
                     .setContentTitle("Doručak")
@@ -79,10 +81,10 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
 
                 notificationManager.notify(12345, builder.build())
             }
-            if((hrs >= 11 && hrs <= 16) || (hrs == 10 && mins >= 15) || (hrs == 16 && mins <= 15)) {
-                var lunchNum = cntLunch.text.toString().toInt()
+            if((hrs >= 11 && hrs <= 15) || (hrs == 10 && mins >= 15) || (hrs == 15 && mins <= 15)) {
+                var lunchNum = cntLunchG.text.toString().toInt()
                 lunchNum--
-                cntLunch.setText(lunchNum.toString())
+                cntLunchG.setText(lunchNum.toString())
 
                 builder
                     .setContentTitle("Ručak")
@@ -91,9 +93,9 @@ class GeofenceBroadcastReceiver: BroadcastReceiver() {
                 notificationManager.notify(12345, builder.build())
             }
             if((hrs >= 17 && hrs <= 20) || (hrs == 17 && mins <= 15)) {
-                var dinnerNum = cntDinner.text.toString().toInt()
+                var dinnerNum = cntDinnerG.text.toString().toInt()
                 dinnerNum--
-                cntDinner.setText(dinnerNum.toString())
+                cntDinnerG.setText(dinnerNum.toString())
 
                 builder
                     .setContentTitle("Večera")

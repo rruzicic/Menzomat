@@ -20,9 +20,11 @@ import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val TAG = "MenzomatFence"
-lateinit var cntBreakfast: TextView
-lateinit var cntLunch: TextView
-lateinit var cntDinner: TextView
+
+// had to be renamed because the IDE saw this as view binders so I added G
+lateinit var cntBreakfastG: TextView
+lateinit var cntLunchG: TextView
+lateinit var cntDinnerG: TextView
 
 
 // class is not abstract because the app was throwing Instantiation Exception
@@ -37,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*cntBreakfast = findViewById<EditText>(R.id.cntBreakfast)
-        cntLunch = findViewById<EditText>(R.id.cntLunch)
-        cntDinner = findViewById<EditText>(R.id.cntDinner)*/
+        cntBreakfastG = findViewById<EditText>(R.id.cntBreakfast)
+        cntLunchG = findViewById<EditText>(R.id.cntLunch)
+        cntDinnerG = findViewById<EditText>(R.id.cntDinner)
 
         // requesting permissions
         if(ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -104,14 +106,14 @@ class MainActivity : AppCompatActivity() {
             .setRequestId("MenzaFence")
 
             // Set the circular region of this geofence.
-            .setCircularRegion(45.24609692364816, 19.848956664010046, 50f)
+            .setCircularRegion(45.24609692364816, 19.848956664010046, 500f)
 
             // Set the expiration duration of the geofence. This geofence gets automatically removed after this period of time.
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             // Set the transition types of interest. Alerts are only generated for these transition. We track entry and exit transitions in this sample.
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT or Geofence.GEOFENCE_TRANSITION_DWELL)
 
-            .setLoiteringDelay(300000) // 5 minutes
+            .setLoiteringDelay(10) // 5 minutes 300000
             // Create the geofence.
             .build())
 
